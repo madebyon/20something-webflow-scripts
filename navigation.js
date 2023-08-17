@@ -176,5 +176,5 @@ if (!connectOpen) {
         connectWrapper.style.display = 'none';
     }, 500);
     connectOpen = false;
-}
+  }
 }
