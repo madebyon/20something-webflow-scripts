@@ -5,7 +5,7 @@ Used to host files for the Webflow hosted 20Something site
 ## Getting Started
 
 
-Navigation code
+Desktop and mobile navigation code
 
 
 <br />
