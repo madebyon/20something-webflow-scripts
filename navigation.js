@@ -116,6 +116,7 @@ const connectBtn = document.getElementById("connectBtn"),
     navLinks = document.querySelectorAll(".nav_link"),
     wCurrent = document.querySelector(".w--current"),
     main = document.getElementById("main");
+    mainHome = document.querySelector(".main.home");
 
 let connectOpen = false;
 
@@ -132,8 +133,11 @@ if (!connectOpen) {
     connectWrapper.style.opacity = '1';
     connectWrapper.style.transform = 'translateY(0)'; 
     connectWrapper.style.transition = "opacity 500ms ease, transform 750ms cubic-bezier(0.16, 1, 0.3, 1)";
-    main.style.transform = `translateY(300px)`;
-    main.home.style.transform = `translateY(236px)`;
+    if (mainHome !== null) {
+        mainHome.style.transform = `translateY(236px)`;
+    } else {
+        main.style.transform = `translateY(300px)`;
+    }
     main.style.transition = "transform 750ms cubic-bezier(0.16, 1, 0.3, 1)";
     }, 1);
     setTimeout(() => {
