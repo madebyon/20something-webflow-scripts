@@ -133,6 +133,7 @@ if (!connectOpen) {
     connectWrapper.style.transform = 'translateY(0)'; 
     connectWrapper.style.transition = "opacity 500ms ease, transform 750ms cubic-bezier(0.16, 1, 0.3, 1)";
     main.style.transform = `translateY(300px)`;
+    main.home.style.transform = `translateY(236px)`;
     main.style.transition = "transform 750ms cubic-bezier(0.16, 1, 0.3, 1)";
     }, 1);
     setTimeout(() => {
