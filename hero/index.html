@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body { margin: 0; box-sizing: border-box; }
+    body * { box-sizing: border-box; }
+    canvas {
+      display: block;
+      width: 100vw;
+      flex-grow: 1;
+      position: relative;
+      transition: 1000ms transform cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .heroWrapper {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .heroWrapper.active canvas {
+    }
+
+    .heroHeader {
+      position: relative;
+      width: 100%;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background-color: var(--theme-bg);
+      top: 0;
+      z-index: 3;
+      color: var(--theme-text);
+      padding: 0 24px;
+      gap: 24px;
+      transition: 300ms background-color;
+    }
+
+    .heroControls {
+      position: absolute;
+      width: 100%;
+      top: 60px;
+      display: flex;
+      background-color: var(--theme-bg);
+      z-index: 2;
+      color: var(--theme-text);
+      padding: 0 24px;
+      gap: 24px;
+      transition: 1000ms transform cubic-bezier(0.22, 1, 0.36, 1), 300ms background-color;
+      transform: translateY(-100%);
+      min-height: 100px;
+      padding: 24px;
+      padding-top: 0;
+    }
+
+
+    .heroControls p {
+      margin: 0;
+      font-size: 14px;
+    }
+
+
+    .heroControls.active {
+      transform: translateY(0%);
+    }
+
+    .heroControlsLeft {
+      flex-shrink: 0;
+      margin-left: calc(100% / 12 * 3 + 24px);
+      width: calc(100% / 12 * 2);
+      display: flex;
+      align-items: flex-start;
+      justify-content: flex-start;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .heroControlsRight {
+      flex-grow: 1;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 24px;
+      margin-right: calc(100% / 12);
+    }
+
+    .heroControlsRight > div {
+      width: calc(20% - 20px);
+    }
+
+    .heroControlsLeft > div {
+      width: 50%;
+    }
+
+    .heroControls > div > div {
+      /* width: calc((100vw - (24px * 3)) / 12); */
+      flex-shrink: 0;
+    }
+
+    .heroControlsRight > div > div {
+      position: relative;
+    }
+
+    .heroControlsRight > div > div > div {
+      position: absolute;
+      left: 0;
+      top: 0;
+      height: 18px;
+      width: var(--thumb-width);
+      pointer-events: none;
+      background-color: var(--slider-colour);
+    }
+
+    .heroControlsRight > div span {
+      position: absolute;
+      right: 0;
+      top: 0;
+      padding: 0 2px;
+      height: 18px;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    .heroHeader > h3 {
+      margin: 0;
+      white-space: nowrap;
+      width: calc(100% / 12 * 3);
+    }
+
+    .heroHeader > button {
+      padding: 0;
+      appearance: none;
+      background-color: transparent;
+      color: var(--theme-text);
+      border: none;
+      flex-grow: 1;
+      text-align: left;
+      cursor: pointer;
+    }
+
+    .colourPicker input {
+      appearance: none;
+      width: 100%;
+      height: 18px;
+      padding: 0;
+      border: none;
+      outline: none;
+      background-color: transparent;
+      cursor: pointer;
+    }
+
+    .colourPicker input::-webkit-color-swatch-wrapper {
+	    padding: 0;
+    }
+
+    .colourPicker input::-webkit-color-swatch {
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+
+    .themePicker > div {
+      display: flex;
+      margin-bottom: 4px;
+      width: 100%;
+    }
+    .themePicker button {
+      padding: 5px;
+      margin: 0;
+      background: rgba(217, 217, 217, 0.40);
+      appearance: none;
+      color: var(--theme-text);
+      border: none;
+      cursor: pointer;
+      display: block;
+      width: 50%;
+    }
+
+    .themePicker button.active {
+      background-color: var(--slider-colour);
+    }
+
+    .controlsSlider {
+        -webkit-appearance: none;
+        width: 100%;
+        height: 18px;
+        background: rgba(217, 217, 217, 0.40);
+        outline: none;
+        opacity: 0.7;
+        transition: opacity 200ms;
+        overflow: hidden;
+        padding: 0;
+        margin: 0;
+      }
+
+      .controlsSlider:hover {
+        opacity: 1;
+      }
+
+      .controlsSlider::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 18px;
+        height: 18px;
+        background: transparent;
+        cursor: pointer;
+      }
+
+      .controlsSlider::-moz-range-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 18px;
+        height: 18px;
+        background: transparent;
+        cursor: pointer;
+      }
+
+      @media (max-width: 1024px) {
+      .heroControlsRight {
+        margin: 0;
+      }
+    }
+
+
+    @media (max-width: 900px) {
+      .heroHeader > button {
+        text-align: right;
+      }
+      .heroControls > div {
+        margin: 0;
+      }
+
+      .heroControlsLeft > div {
+        width: 100%;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .heroHeader {
+        height: 50px;
+        padding: 0 16px;
+      }
+
+      .heroControls {
+        top: 50px;
+        padding: 16px;
+      }
+
+      .heroHeader > h3 {
+        font-size: 16px;
+      }
+
+      .heroHeader > button {
+        font-size: 16;
+      }
+
+      .heroControls {
+        flex-direction: column-reverse;
+        gap: 16px;
+      }
+
+      .heroControls > div {
+        width: 100%;
+        flex-direction: row;
+        margin: 0;
+        justify-content: space-between;
+
+      }
+
+      .heroControls > div > div {
+        width: calc(33.3% - 16px);
+      }
+    }
+  </style>
+</head>
+<body>
+    <script src="./main.js"></script>
+    <div class="heroWrapper">
+      <div class="heroHeader">
+        <h3>A Space for SOMETHING</h3>
+        <button class="heroControlsToggle"><h3>Show controls</h3></button>
+      </div>
+      <div class="heroControls">
+        <div class="heroControlsLeft"></div>
+        <div class="heroControlsRight"></div>
+      </div>
+      <canvas id="hero"></canvas>
+    </div>
+
+</body>
+</html>
