@@ -321,8 +321,10 @@
     window.addEventListener('message', event => {
         console.log('event.data', event.data);
         peopleData = event.data;
-        sendHeightToParent();
         init();
+        setTimeout(() => {
+          sendHeightToParent();
+        }, 100);
     });
     window.addEventListener('resize', () => {
       sendHeightToParent();
