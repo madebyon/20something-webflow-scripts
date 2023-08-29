@@ -313,12 +313,19 @@
       window.addEventListener('scroll', handleScroll);
     }
 
+    function sendHeightToParent() {
+      const height = document.body.scrollHeight;
+      parent.postMessage({ iframeHeight: height }, '*'); // '*' allows communication with any origin
+    }
+
     window.addEventListener('message', event => {
-      if (event.origin === 'https://20something.webflow.io') {
         console.log('event.data', event.data);
         peopleData = event.data;
+        sendHeightToParent();
         init();
-      } else { console.log('wrong origin'); }
+    });
+    window.addEventListener('resize', () => {
+      sendHeightToParent();
     });
   </script>
 
