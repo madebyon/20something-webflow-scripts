@@ -20,67 +20,10 @@
   <script src="https://unpkg.com/three@0.126.0/examples/js/loaders/DRACOLoader.js"></script>
 
   <script>
-     /* let peopleData = [
-        {
-          name: 'Rory',
-          role: 'Creative',
-          modelUrl: '20SomethingHead.glb',
-        },
-        {
-          name: 'Rory',
-          role: 'Creative',
-          modelUrl: '20SomethingHeadAJ.glb',
-        },
-        {
-          name: 'Rory',
-          role: 'Creative',
-          modelUrl: '20SomethingHeadWill.glb',
-        },
-        {
-          name: 'Rory',
-          role: 'Creative',
-          modelUrl: '20SomethingHeadCH.glb',
-        },
-        {
-          name: 'Rory',
-          role: 'Creative',
-          modelUrl: '20SomethingHeadCath.glb',
-        },
-        {
-          name: 'Rory',
-          role: 'Creative',
-          modelUrl: '20SomethingHeadRory.glb',
-        },
-        {
-          name: 'Rory',
-          role: 'Creative',
-          modelUrl: '20SomethingHeadPhoebe.glb',
-        },
-        {
-          name: 'Rory',
-          role: 'Creative',
-          modelUrl: '20SomethingHeadAsa.glb',
-        },
-        {
-          name: 'Rory',
-          role: 'Creative',
-          modelUrl: '20SomethingHeadAmy.glb',
-        },
-        {
-          name: 'Rory',
-          role: 'Creative',
-          modelUrl: '20SomethingHeadFran.glb',
-        },
-        {
-          name: 'Rory',
-          role: 'Creative',
-          modelUrl: '20SomethingHeadAndrew.glb',
-        },
-      ]; */
 
-    console.log('peopleData from GH code...');
-    console.log(peopleData);
-    const peopleDataRandom = peopleData.sort(() => Math.random() - 0.5);
+    console.log('window.parent.peopleData from GH code...');
+    console.log(window.parent.peopleData);
+    peopleDataRandom = window.parent.peopleData.sort(() => Math.random() - 0.5);
     const mouse = new THREE.Vector2();
 
     const handleMouseMove = (e) => {
