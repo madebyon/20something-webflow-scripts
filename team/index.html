@@ -322,7 +322,7 @@
         console.log('event.data', event.data);
         peopleData = event.data;
         init();
-        setTimeout(() => {
+        setInterval(() => {
           sendHeightToParent();
         }, 1000);
     });
