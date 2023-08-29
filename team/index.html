@@ -21,45 +21,42 @@
 
   <script>
 
-    console.log('window', window);
-    console.log('window.parent', window.parent);
-    console.log('window.peopleData', window.peopleData);
-    console.log('window.parent.peopleData from GH code...');
-    console.log(window.parent.peopleData);
-    peopleDataRandom = window.parent.peopleData.sort(() => Math.random() - 0.5);
-    const mouse = new THREE.Vector2();
-
-    const handleMouseMove = (e) => {
-      const x = e.touches?.length ? e.touches[0]?.clientX : e.clientX;
-      const y = e.touches?.length ? e.touches[0]?.clientY : e.clientY;
-
-      mouse.x = (x / window.innerWidth) * 2 - 1;
-      mouse.y = -((y + window.scrollY) / window.innerHeight) * 2 + 1;
-    }
-
-    const getVisibleSize = (camera, zoom = 0) => {
-      const { fov, aspect } = camera;
-
-      const pos = new THREE.Vector3;
-
-      camera.getWorldPosition(pos);
-
-      // Set the camera distance to the origin.
-      const distance = zoom || pos.z;
-
-      // Calculate the vertical field of view.
-      const vFOV = (fov || 75) * (Math.PI / 180);
-      const height = 2 * Math.tan(vFOV / 2) * distance;
-
-      // Calculate the horizontal field of view.
-      const width = height * aspect;
-
-      return { width: width, height: height };
-    };
-
-    const clamp = (num, min, max) => Math.min(Math.max(num, min), max);
+    let peopleData;
 
     function init() {
+      peopleDataRandom = peopleData.sort(() => Math.random() - 0.5);
+      const mouse = new THREE.Vector2();
+
+      const handleMouseMove = (e) => {
+        const x = e.touches?.length ? e.touches[0]?.clientX : e.clientX;
+        const y = e.touches?.length ? e.touches[0]?.clientY : e.clientY;
+
+        mouse.x = (x / window.innerWidth) * 2 - 1;
+        mouse.y = -((y + window.scrollY) / window.innerHeight) * 2 + 1;
+      }
+
+      const getVisibleSize = (camera, zoom = 0) => {
+        const { fov, aspect } = camera;
+
+        const pos = new THREE.Vector3;
+
+        camera.getWorldPosition(pos);
+
+        // Set the camera distance to the origin.
+        const distance = zoom || pos.z;
+
+        // Calculate the vertical field of view.
+        const vFOV = (fov || 75) * (Math.PI / 180);
+        const height = 2 * Math.tan(vFOV / 2) * distance;
+
+        // Calculate the horizontal field of view.
+        const width = height * aspect;
+
+        return { width: width, height: height };
+      };
+
+      const clamp = (num, min, max) => Math.min(Math.max(num, min), max);
+
       const teamWrap = document.querySelector('#team');
       const scene = new THREE.Scene();
 
@@ -316,7 +313,13 @@
       window.addEventListener('scroll', handleScroll);
     }
 
-    window.onload = init;    
+    window.addEventListener('message', event => {
+      if (event.origin === 'https://20something.webflow.io') {
+        console.log('event.data', event.data);
+        peopleData = event.data;
+        init();
+      } else { console.log('wrong origin'); }
+    });
   </script>
 
   <style>
