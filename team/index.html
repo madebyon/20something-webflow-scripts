@@ -21,6 +21,9 @@
 
   <script>
 
+    console.log('window', window);
+    console.log('window.parent', window.parent);
+    console.log('window.peopleData', window.peopleData);
     console.log('window.parent.peopleData from GH code...');
     console.log(window.parent.peopleData);
     peopleDataRandom = window.parent.peopleData.sort(() => Math.random() - 0.5);
