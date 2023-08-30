@@ -2,7 +2,7 @@
 const hamburgerBtn = document.getElementById("openNavBtn"),
     menuDropdown = document.getElementById("menuDropdown"),
     navBorder = document.getElementById("navBorder"),
-    headerLogo = document.getElementById("headerLogo"),
+    //headerLogo = document.getElementById("headerLogo"),
     intoView1 = document.getElementById("intoView1"),
     intoView2 = document.getElementById("intoView2"),
     intoView3 = document.getElementById("intoView3"),
@@ -18,7 +18,7 @@ hamburgerBtn.onclick = () => {
     if (!navOpen === true) {
         hamburgerBtn.classList.toggle("toggled");
         navBorder.style.background = '#fff';
-        headerLogo.style.color = '#fff';
+        //headerLogo.style.color = '#fff';
         menuDropdown.style.display = 'flex';
         setTimeout(() => {
             menuDropdown.style.opacity = '1';
@@ -69,7 +69,7 @@ hamburgerBtn.onclick = () => {
     } else {
         hamburgerBtn.classList.toggle("toggled");
         navBorder.style.background = '#000';
-        headerLogo.style.color = '#000';
+        //headerLogo.style.color = '#000';
         menuDropdown.style.opacity = '0';
         menuDropdown.style.transform = 'translateY(-5rem)';
         menuDropdown.style.transition = "opacity 600ms ease, transform 800ms cubic-bezier(0.16, 1, 0.3, 1)";
@@ -123,7 +123,7 @@ let connectOpen = false;
 connectBtn.onclick = () => {
 if (!connectOpen) {
     navBorder.style.background = '#fff';
-    headerLogo.style.color = '#fff';
+    //headerLogo.style.color = '#fff';
     wCurrent.style.color = '#fff';
     for (const navLinksColor of navLinks) {
     navLinksColor.style.color = '#fff';
@@ -158,7 +158,7 @@ if (!connectOpen) {
     connectOpen = true;
 } else {
     navBorder.style.background = '#000';
-    headerLogo.style.color = '#000';
+    //headerLogo.style.color = '#000';
     for (const navLinksColor of navLinks) {
     navLinksColor.style.color = 'rgba(0, 0, 0, 0.40)';
     }
