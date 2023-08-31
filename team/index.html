@@ -75,15 +75,15 @@
       const aLight = new THREE.AmbientLight(0xffffff, 1.2)
       scene.add(aLight);
 
-      const light = new THREE.SpotLight(0xffffff, 5);
-      light.position.set(0, 1, 10);
+      // const light = new THREE.SpotLight(0xffffff, 5);
+      // light.position.set(0, 1, 10);
 
-      light.angle = 0.2;
-      light.penumbra = 1;
-      light.decay = 0;
-      light.visible = false;
+      // light.angle = 0.2;
+      // light.penumbra = 1;
+      // light.decay = 0;
+      // light.visible = false;
 
-      scene.add(light);
+      // scene.add(light);
 
       const dLight = new THREE.DirectionalLight(0xffbe69, 2);
       dLight.position.x = -10;
@@ -121,51 +121,51 @@
       const heads = new THREE.Group;
       scene.add(heads);
 
-      const circleRadius = 5;
-      const circleSegments = 8;
+      // const circleRadius = 5;
+      // const circleSegments = 8;
      
-      const targetGeo = new THREE.CircleGeometry(circleRadius, circleSegments);
+      // const targetGeo = new THREE.CircleGeometry(circleRadius, circleSegments);
       
-      // Vertex shader code (you don't need this since you only want the fragment shader)
-      const vertexShader = `
-        varying vec2 vUv;
+      // // Vertex shader code (you don't need this since you only want the fragment shader)
+      // const vertexShader = `
+      //   varying vec2 vUv;
 
-        void main() {
-          vUv = uv;
-          gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
-        }
-      `;
+      //   void main() {
+      //     vUv = uv;
+      //     gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+      //   }
+      // `;
 
-      // Fragment shader code
-      const fragmentShader = `
-        varying vec2 vUv;
-        uniform vec3 uColour;
+      // // Fragment shader code
+      // const fragmentShader = `
+      //   varying vec2 vUv;
+      //   uniform vec3 uColour;
 
-        void main() {
+      //   void main() {
 
-          float dist = min(pow(1.0 - distance(vUv, vec2(0.5)) * 2.0, 2.0), 1.0);
+      //     float dist = min(pow(1.0 - distance(vUv, vec2(0.5)) * 2.0, 2.0), 1.0);
 
-          // dist = max((dist - 0.5) * 2.0 + 0.5, 0.0);
-          gl_FragColor = vec4(vec3(uColour), clamp(dist * 0.4, 0.0, 1.0)); // Solid red color
-        }
-      `;
+      //     // dist = max((dist - 0.5) * 2.0 + 0.5, 0.0);
+      //     gl_FragColor = vec4(vec3(uColour), clamp(dist * 0.4, 0.0, 1.0)); // Solid red color
+      //   }
+      // `;
 
-      // Create a basic material using the custom fragment shader
-      const material = new THREE.ShaderMaterial({
-        fragmentShader: fragmentShader,
-        vertexShader: vertexShader,
-        transparent: true,
-        uniforms: {
-          uColour: { value: new THREE.Vector3(1.0) }
-        }
-      });
+      // // Create a basic material using the custom fragment shader
+      // const material = new THREE.ShaderMaterial({
+      //   fragmentShader: fragmentShader,
+      //   vertexShader: vertexShader,
+      //   transparent: true,
+      //   uniforms: {
+      //     uColour: { value: new THREE.Vector3(1.0) }
+      //   }
+      // });
 
-      const target = new THREE.Mesh(targetGeo, material);
-      target.visible = false;
-      target.position.z = -2;
-      heads.add(target);
+      // const target = new THREE.Mesh(targetGeo, material);
+      // target.visible = false;
+      // target.position.z = -2;
+      // heads.add(target);
 
-      light.target = target;
+      // light.target = target;
 
       const positionHead = (model, i) => {
         const padding = 0.75;
@@ -229,8 +229,8 @@
 
         if (isDisco){
           dLightRight.color = new THREE.Color(getCyclingColorHex(elapsedTime, 0.01));
-          light.color = new THREE.Color(getCyclingColorHex(elapsedTime, 0.01));
-          target.material.uniforms.uColour.value = new THREE.Color(getCyclingColorHex(elapsedTime, 0.01));
+          // light.color = new THREE.Color(getCyclingColorHex(elapsedTime, 0.01));
+          // target.material.uniforms.uColour.value = new THREE.Color(getCyclingColorHex(elapsedTime, 0.01));
         }
 
         models.map((model, i) => {
@@ -253,8 +253,8 @@
         
         })
 
-        target.position.x += (mouse.x * (threeSizes.width / 2) - target.position.x) / 10;
-        target.position.y += (mouse.y * (threeSizes.height / 2) - target.position.y) / 10;
+        // target.position.x += (mouse.x * (threeSizes.width / 2) - target.position.x) / 10;
+        // target.position.y += (mouse.y * (threeSizes.height / 2) - target.position.y) / 10;
 
         heads.position.y = (threeSizes.height / window.innerHeight) * window.scrollY;
 
@@ -297,14 +297,14 @@
         if (isDisco){
           dLightRight.intensity = 2;
           discoButton.classList.add('active');
-          light.visible = true;
-          target.visible = true;
+          // light.visible = true;
+          // target.visible = true;
         } else {
-          target.visible = false;
-          light.visible = false;
+          // target.visible = false;
+          // light.visible = false;
           dLightRight.intensity = 0.1;
           dLightRight.color = new THREE.Color('#ffffff');
-          light.color = new THREE.Color('#ffffff');
+          // light.color = new THREE.Color('#ffffff');
           discoButton.classList.remove('active');
         }
       })
