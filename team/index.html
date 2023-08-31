@@ -315,7 +315,7 @@
     }
 
     function sendHeightToParent() {
-      const height = document.querySelector('#team-inner').scrollHeight;
+      const height = document.querySelector('.team-inner').scrollHeight;
       parent.postMessage({ iframeHeight: height }, '*'); // '*' allows communication with any origin
     }
 
