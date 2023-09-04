@@ -195,8 +195,8 @@ const init = () => {
     const createShader = async () => {
         const positionsArray = Array(numberOfPositions).fill([0, 0]);
 
-        const sprite = await loadTexture('/img/ascii-sprite.png');
-        const face = await loadTexture('/img/20s-face-blur.png');
+        const sprite = await loadTexture('./img/ascii-sprite.png');
+        const face = await loadTexture('./img/20s-face-blur.png');
         const dpi = window.devicePixelRatio;
 
         canvas.width = window.innerWidth * dpi;
