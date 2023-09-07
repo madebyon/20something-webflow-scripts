@@ -323,12 +323,18 @@
     }
 
     window.addEventListener('message', event => {
-        console.log('event.data', event.data);
-        peopleData = event.data;
-        init();
-        setInterval(() => {
-          sendHeightToParent();
-        }, 1000);
+      if (peopleData === undefined) {
+        const msgData = event.data;
+        if (msgData.length) {
+          if (msgData[0].role !== undefined) {
+            peopleData = msgData;
+            init();
+            setInterval(() => {
+              sendHeightToParent();
+            }, 1000);
+          }
+        }
+      }
     });
     window.addEventListener('resize', () => {
       sendHeightToParent();
