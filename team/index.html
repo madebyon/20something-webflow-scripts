@@ -317,7 +317,7 @@
 
       window.addEventListener('resize', handleResize);
       window.addEventListener('pointermove', handleMouseMove);
-      window.addEventListener('scroll', () => handleScroll(window.scrollY));
+      // window.addEventListener('scroll', () => handleScroll(window.scrollY));
     }
 
     function sendHeightToParent() {
@@ -421,6 +421,8 @@
       position: relative;
       margin: 0;
       width: 100%;
+      height: 100%;
+      overflow: hidden;
       font-family: Fkgrotesk,sans-serif;
     }
 
@@ -446,6 +448,15 @@
     p {
       margin: 0;
       color: #000;
+      font-size: 23px;
+      line-height: 1.2;
+    }
+
+    @media (max-width: 768px) {
+      p {
+        font-size: 16px;
+        line-height: 1.3;
+      }
     }
 
     #team .team-inner {
