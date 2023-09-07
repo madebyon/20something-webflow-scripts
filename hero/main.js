@@ -1048,7 +1048,6 @@ float noise(vec3 v){
   };
 
   window.addEventListener('message', event => {
-    console.log('hero event.data', event.data);
     asciiDefaultColour = event.data;
     init();
   });
