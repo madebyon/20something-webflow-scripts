@@ -569,6 +569,8 @@ float noise(vec3 v){
       });
   };
 
+  let asciiDefaultColour;
+
   const init = () => {
       const canvas = document.querySelector('#hero');
       let startTime = 0;
@@ -1045,6 +1047,10 @@ float noise(vec3 v){
       createShader();
   };
 
-  window.onload = init;
+  window.addEventListener('message', event => {
+    console.log('hero event.data', event.data);
+    asciiDefaultColour = event.data;
+    init();
+  });
 
 })();
