@@ -24,10 +24,18 @@
 
     let peopleData;
     let parentScroll = 0;
+    let lastScroll = 0;
+    const mouse = new THREE.Vector2();
+
+    const handleScroll = (scroll) => {
+        const scrollDelta =  lastScroll - scroll;
+        parentScroll = scroll;
+        mouse.y += (scrollDelta / window.innerHeight) * 2;
+        lastScroll = scroll;    
+    }
 
     function init() {
       peopleDataRandom = peopleData.sort(() => Math.random() - 0.5);
-      const mouse = new THREE.Vector2();
 
       const handleMouseMove = (e) => {
         const x = e.touches?.length ? e.touches[0]?.clientX : e.clientX;
@@ -285,15 +293,7 @@
         })
       }
 
-      let lastScroll = 0;
 
-      const handleScroll = (scroll) => {
-        const scrollDelta =  lastScroll - scroll;
-        parentScroll = scroll;
-        mouse.y += (scrollDelta / window.innerHeight) * 2;
-        lastScroll = scroll;
-        
-      }
 
       const discoButton = document.querySelector('#discoButton');
 
