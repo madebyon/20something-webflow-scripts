@@ -245,7 +245,7 @@
         models.map((model, i) => {
           let maxX = window.innerWidth > 768 ? Math.PI / 3 : 0.3;
           console.log((parentScroll / window.innerHeight) * -2);
-          let yPos = window.innerWidth > 768 ? mouse.y : ((parentScroll - window.innerHeight) / window.innerHeight) * -2;
+          let yPos = window.innerWidth > 768 ? mouse.y : ((parentScroll + window.innerHeight) / window.innerHeight) * -2;
 
           let xOffset = clamp((mouse.x - model.position.x / threeSizes.width * 2) * Math.PI, maxX * -1, maxX);
           let yOffset = clamp((yPos - model.position.y / threeSizes.height * 2), Math.PI / -4, Math.PI / 4) * -1;
