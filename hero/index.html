@@ -46,18 +46,16 @@
     .heroControls {
       position: absolute;
       width: 100%;
-      top: 60px;
+      top: 0px;
       display: flex;
       background-color: var(--theme-bg);
       z-index: 2;
       color: var(--theme-text);
-      padding: 0 24px;
       gap: 24px;
       transition: 1000ms transform cubic-bezier(0.22, 1, 0.36, 1), 300ms background-color;
       transform: translateY(-100%);
       min-height: 100px;
       padding: 24px;
-      padding-top: 0;
     }
 
 
@@ -69,6 +67,10 @@
 
     .heroControls.active {
       transform: translateY(0%);
+    }
+
+    .heroControls.active .toggleArrow {
+      transform: rotate(180deg);
     }
 
     .heroControlsLeft {
@@ -136,15 +138,21 @@
       width: calc(100% / 12 * 3);
     }
 
-    .heroHeader > button {
+    .heroControlsToggle {
       padding: 0;
       appearance: none;
       background-color: transparent;
-      color: var(--theme-text);
       border: none;
-      flex-grow: 1;
-      text-align: left;
+      position: fixed;
+      top: 100%;
+      right: calc(100% / 12 * 2);
+      z-index: 10;
       cursor: pointer;
+    }
+
+    .toggleArrow {
+      transform-origin: center;
+      transition: 300ms all cubic-bezier(0.22, 1, 0.36, 1);
     }
 
     .colourPicker input {
@@ -261,8 +269,8 @@
         font-size: 16px;
       }
 
-      .heroHeader > button {
-        font-size: 16;
+      .heroControlsToggle {
+        font-size: 16px;
       }
 
       .heroControls {
@@ -287,13 +295,22 @@
 <body>
     <script src="./main.js"></script>
     <div class="heroWrapper">
-      <div class="heroHeader">
-        <h3>A Space for SOMETHING</h3>
-        <button class="heroControlsToggle"><h3>Show controls</h3></button>
-      </div>
       <div class="heroControls">
         <div class="heroControlsLeft"></div>
         <div class="heroControlsRight"></div>
+        <button class="heroControlsToggle">
+          <svg width="74" height="35" viewBox="0 0 74 35" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <g clip-path="url(#clip0_4215_2971)">
+            <path d="M48.4695 35H25.5305C20.1395 35 15.4587 31.2873 14.2344 26.0462L12.3531 17.9728C10.6431 10.641 6.23162 4.22625 0 0H74C67.7684 4.22625 63.3569 10.641 61.6469 17.9687L59.7656 26.0422C58.5413 31.2873 53.8605 34.9959 48.4695 34.9959V35Z" fill="#101010"/>
+            <path class="toggleArrow" d="M30.7129 18.3844L35.5366 23.2016V6.57373H38.4504V23.2016L43.2863 18.3844L45.1105 20.2061L37.8464 27.4441H36.1365L28.8887 20.2061L30.7129 18.3844Z" fill="white"/>
+            </g>
+            <defs>
+            <clipPath id="clip0_4215_2971">
+            <rect width="74" height="35" fill="white"/>
+            </clipPath>
+            </defs>
+            </svg>            
+        </button>
       </div>
       <canvas id="hero"></canvas>
     </div>
