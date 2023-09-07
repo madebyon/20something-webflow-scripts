@@ -1065,6 +1065,4 @@ float noise(vec3 v){
       init();
   });
 
-  window.onload = init;
-
 })();

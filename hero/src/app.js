@@ -509,5 +509,3 @@ window.addEventListener('message', event => {
     asciiDefaultColour = event.data;
     init();
 });
-
-window.onload = init
