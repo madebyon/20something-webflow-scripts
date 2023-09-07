@@ -23,6 +23,7 @@
   <script>
 
     let peopleData;
+    let parentScroll = 0;
 
     function init() {
       peopleDataRandom = peopleData.sort(() => Math.random() - 0.5);
@@ -235,7 +236,7 @@
 
         models.map((model, i) => {
           let maxX = window.innerWidth > 768 ? Math.PI / 3 : 0.3;
-          let yPos = window.innerWidth > 768 ? mouse.y : (window.scrollY / window.innerHeight) * -2;
+          let yPos = window.innerWidth > 768 ? mouse.y : (parentScroll / window.innerHeight) * -2;
 
           let xOffset = clamp((mouse.x - model.position.x / threeSizes.width * 2) * Math.PI, maxX * -1, maxX);
           let yOffset = clamp((yPos - model.position.y / threeSizes.height * 2), Math.PI / -4, Math.PI / 4) * -1;
@@ -286,10 +287,12 @@
 
       let lastScroll = 0;
 
-      const handleScroll = () => {
-        const scrollDelta =  lastScroll - window.scrollY;
+      const handleScroll = (scroll) => {
+        const scrollDelta =  lastScroll - scroll;
+        parentScroll = scroll;
         mouse.y += (scrollDelta / window.innerHeight) * 2;
-        lastScroll = window.scrollY;
+        lastScroll = scroll;
+        
       }
 
       const discoButton = document.querySelector('#discoButton');
@@ -314,7 +317,7 @@
 
       window.addEventListener('resize', handleResize);
       window.addEventListener('pointermove', handleMouseMove);
-      window.addEventListener('scroll', handleScroll);
+      window.addEventListener('scroll', () => handleScroll(window.scrollY));
     }
 
     function sendHeightToParent() {
@@ -334,6 +337,8 @@
             }, 1000);
           }
         }
+      } else if (!isNaN(event.data)) {
+        handleScroll(event.data)
       }
     });
     window.addEventListener('resize', () => {
