@@ -481,13 +481,17 @@
 
     #team .team-inner > div {
       width: 25%;
-      height: 27vw;
+      margin-top: 22vw;
       display: flex;
       flex-shrink: 0;
       position: relative;
       padding: 2.5vw;
       justify-content: flex-start;
-      align-items: flex-end;
+      align-items: flex-start;
+    }
+
+    #team .team-inner > div > div {
+      position: absolute;
     }
 
     #team .team-inner > div span {
@@ -497,7 +501,7 @@
     @media (max-width: 1024px) {
       #team .team-inner > div {
         width: 33.3%;
-        height: 37vw;
+        margin-top: 33vw;
         padding: 4vw;
       }
     }
@@ -505,7 +509,7 @@
     @media (max-width: 768px) {
       #team .team-inner > div {
         width: 50%;
-        height: 56vw;
+        margin-top: 50vw;
         padding: 6vw;
       }
     }
