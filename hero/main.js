@@ -587,7 +587,7 @@ float noise(vec3 v){
           aberrationBase: 0.0,
           aberrationChaos: 0.01,
           // colour: [Math.floor(Math.random() * 256), Math.floor(Math.random() * 256), Math.floor(Math.random() * 256)],
-          colour: [211, 241, 0],
+          colour: asciiDefaultColour,
           lensDistortion: 0.05,
           lensDistortionEased: 0.05,
           mouseEasing: 3,
