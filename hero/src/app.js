@@ -13,6 +13,8 @@ const loadTexture = async (url) => {
     });
 }
 
+let asciiDefaultColour = [211, 241, 0];
+
 const init = () => {
     const canvas = document.querySelector('#hero');
     let startTime = 0;
@@ -439,7 +441,10 @@ const init = () => {
             }
         };
 
+        let startX = 0;
+
         const handleMouseMove = (e) => {
+            e.preventDefault();
             const x = e.touches?.length ? e.touches[0]?.pageX : e.pageX;
             const y = e.touches?.length ? e.touches[0]?.pageY : e.pageY;
             // Get the mouse position relative to the viewport
@@ -448,20 +453,30 @@ const init = () => {
 
             mouse.x = mouseX / window.innerWidth;
             mouse.y = mouseY / canvas.offsetHeight;
+
+            if (Math.abs(startX - x) > 10) {
+                canvas.style.touchAction = 'none'
+            }
         };
 
-        const handleMouseDown = () => {
+        const handleMouseDown = (e) => {
+            const x = e.touches?.length ? e.touches[0]?.pageX : e.pageX;
+            startX = x;
+
             isMouseDown = true;
         };
 
         const handleMouseUp = () => {
             isMouseDown = false;
+            startX = 0;
+            canvas.style.touchAction = ''
         };
 
         frame = window.requestAnimationFrame(render);
         window.addEventListener('resize', handleResize);
-        window.addEventListener('pointermove', handleMouseMove);
+        canvas.addEventListener('pointermove', handleMouseMove);
         canvas.addEventListener('pointerdown', handleMouseDown);
+        canvas.addEventListener('pointerdown', handleMouseMove);
         window.addEventListener('pointerup', handleMouseUp);
 
         let controlsOpen = false;
@@ -488,6 +503,11 @@ const init = () => {
     };
 
     createShader();
-}
+};
 
-window.onload = init;
+window.addEventListener('message', event => {
+    asciiDefaultColour = event.data;
+    init();
+});
+
+window.onload = init

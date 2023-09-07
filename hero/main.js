@@ -569,7 +569,7 @@ float noise(vec3 v){
       });
   };
 
-  let asciiDefaultColour;
+  let asciiDefaultColour = [211, 241, 0];
 
   const init = () => {
       const canvas = document.querySelector('#hero');
@@ -996,7 +996,10 @@ float noise(vec3 v){
               }
           };
 
+          let startX = 0;
+
           const handleMouseMove = (e) => {
+              e.preventDefault();
               const x = e.touches?.length ? e.touches[0]?.pageX : e.pageX;
               const y = e.touches?.length ? e.touches[0]?.pageY : e.pageY;
               // Get the mouse position relative to the viewport
@@ -1005,20 +1008,30 @@ float noise(vec3 v){
 
               mouse.x = mouseX / window.innerWidth;
               mouse.y = mouseY / canvas.offsetHeight;
+
+              if (Math.abs(startX - x) > 10) {
+                  canvas.style.touchAction = 'none';
+              }
           };
 
-          const handleMouseDown = () => {
+          const handleMouseDown = (e) => {
+              const x = e.touches?.length ? e.touches[0]?.pageX : e.pageX;
+              startX = x;
+
               isMouseDown = true;
           };
 
           const handleMouseUp = () => {
               isMouseDown = false;
+              startX = 0;
+              canvas.style.touchAction = '';
           };
 
           window.requestAnimationFrame(render);
           window.addEventListener('resize', handleResize);
-          window.addEventListener('pointermove', handleMouseMove);
+          canvas.addEventListener('pointermove', handleMouseMove);
           canvas.addEventListener('pointerdown', handleMouseDown);
+          canvas.addEventListener('pointerdown', handleMouseMove);
           window.addEventListener('pointerup', handleMouseUp);
 
           let controlsOpen = false;
@@ -1048,8 +1061,10 @@ float noise(vec3 v){
   };
 
   window.addEventListener('message', event => {
-    asciiDefaultColour = event.data;
-    init();
+      asciiDefaultColour = event.data;
+      init();
   });
+
+  window.onload = init;
 
 })();
