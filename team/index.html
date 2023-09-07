@@ -182,7 +182,7 @@
 
         const scale = threeSizes.width / columns / baseSize.width / 2;
 
-        const verticalOffset = 0.2 * scale;
+        const verticalOffset = 0.33 * scale;
 
         const scalePadding = scale * padding;
         model.scale.set(scalePadding, scalePadding, scalePadding);
@@ -244,11 +244,12 @@
 
         models.map((model, i) => {
           let maxX = window.innerWidth > 768 ? Math.PI / 3 : 0.3;
-          console.log((parentScroll / window.innerHeight) * -2);
+          let maxY = window.innerWidth > 768 ? Math.PI / 4 : 0.3;
+
           let yPos = window.innerWidth > 768 ? mouse.y : ((parentScroll - window.innerHeight / 2) / window.innerHeight) * -2;
 
           let xOffset = clamp((mouse.x - model.position.x / threeSizes.width * 2) * Math.PI, maxX * -1, maxX);
-          let yOffset = clamp((yPos - model.position.y / threeSizes.height * 2), Math.PI / -4, Math.PI / 4) * -1;
+          let yOffset = clamp((yPos - model.position.y / threeSizes.height * 2), maxY * -1, maxY) * -1;
 
           model.rotation.y += (xOffset / 5 - model.rotation.y) / 10;
           model.rotation.x += (yOffset / 5 - model.rotation.x) / 10;
@@ -493,6 +494,7 @@
 
     #team .team-inner > div span {
       color: #969696;
+      position: absolute;
     }
 
     @media (max-width: 1024px) {
