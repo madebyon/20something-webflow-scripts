@@ -234,8 +234,11 @@
         }
 
         models.map((model, i) => {
-          let xOffset = clamp((mouse.x - model.position.x / threeSizes.width * 2) * Math.PI, Math.PI / -3, Math.PI / 3);
-          let yOffset = clamp((mouse.y - model.position.y / threeSizes.height * 2), Math.PI / -4, Math.PI / 4) * -1;
+          let maxX = window.innerWidth > 768 ? Math.PI / 3 : 0.3;
+          let yPos = window.innerWidth > 768 ? mouse.y : (window.scrollY / window.innerHeight) * -2;
+
+          let xOffset = clamp((mouse.x - model.position.x / threeSizes.width * 2) * Math.PI, maxX * -1, maxX);
+          let yOffset = clamp((yPos - model.position.y / threeSizes.height * 2), Math.PI / -4, Math.PI / 4) * -1;
 
           model.rotation.y += (xOffset / 5 - model.rotation.y) / 10;
           model.rotation.x += (yOffset / 5 - model.rotation.x) / 10;
@@ -420,7 +423,7 @@
       display: grid;
       grid-template-columns: 1;
       grid-template-rows: 1;
-      background-color: #D9D9D9;
+      background-color: #F5F3F1;
       align-items: start;   
     }
 
@@ -485,7 +488,7 @@
         left: 50%;
         top: 50%;
         transform: translate(-50%, -50%);
-        background-color: #CACACA;
+        /* background-color: #CACACA; */
         border-radius: 10px;
         z-index: -1;
     }
