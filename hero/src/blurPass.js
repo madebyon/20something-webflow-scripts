@@ -5,11 +5,9 @@ export const addBlurPass = (gl, canvas) => {
   const postProcessVertexShaderSource = `
         attribute vec2 position;
         varying vec2 texCoords;
-        uniform vec2 uResolution;
 
         void main() {
             texCoords = (position + 1.0) * 0.5;
-            // texCoords *= uResolution;
             gl_Position = vec4(position, 0.0, 1.0);
         }
         `;
