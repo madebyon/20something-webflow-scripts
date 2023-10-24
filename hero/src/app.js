@@ -13,6 +13,49 @@ const loadTexture = async (url) => {
     });
 }
 
+const loadVideo = (url) => {
+    return new Promise((resolve, reject) => {
+
+        const video = document.createElement("video");
+
+        let playing = false;
+        let timeupdate = false;
+
+        video.playsInline = true;
+        video.muted = true;
+        video.loop = true;
+
+
+        video.addEventListener(
+            "playing",
+            () => {
+                playing = true;
+                checkReady();
+            },
+            true
+        );
+
+        video.addEventListener(
+            "timeupdate",
+            () => {
+                timeupdate = true;
+                checkReady();
+            },
+            true
+        );
+
+        video.src = url;
+        video.play();
+
+        function checkReady() {
+            if (playing && timeupdate) {
+                resolve(video);
+            }
+        }
+    })
+}
+
+
 let asciiDefaultColour = [211, 241, 0];
 
 const init = () => {
@@ -199,7 +242,9 @@ const init = () => {
         const positionsArray = Array(numberOfPositions).fill([0, 0]);
 
         const sprite = await loadTexture('./img/ascii-sprite.png');
-        const face = await loadTexture('./img/20s-face-blur.png');
+        const face = await loadVideo('./video/20S-loop-edited.webm');
+
+
         const dpi = window.devicePixelRatio;
 
         canvas.width = window.innerWidth * dpi;
@@ -239,6 +284,12 @@ const init = () => {
             gl.uniform1f(drawShader.uniforms.noiseContrast, controls.noiseContrast);
             gl.uniform1f(drawShader.uniforms.noiseBrightness, controls.noiseBrightness);
             gl.uniform1f(drawShader.uniforms.logoFalloff, controls.logoFalloff);
+
+
+            // Update the video texture 
+            gl.activeTexture(gl.TEXTURE3);
+            gl.bindTexture(gl.TEXTURE_2D, drawShader.uniforms.face.texture);
+            gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, face);
 
             if (positionsArray.length > numberOfPositions) {
                 positionsArray.shift();
@@ -504,6 +555,10 @@ const init = () => {
 
     createShader();
 };
+
+// window.addEventListener("load", (event) => {
+//     init();
+// });
 
 window.addEventListener('message', event => {
     asciiDefaultColour = event.data;
