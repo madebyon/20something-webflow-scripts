@@ -15,46 +15,39 @@ const loadTexture = async (url) => {
 
 const loadVideo = (url) => {
     return new Promise((resolve, reject) => {
-
         const video = document.createElement("video");
-
-        let playing = false;
-        let timeupdate = false;
+        video.src = url;
 
         video.playsInline = true;
         video.muted = true;
         video.loop = true;
 
-
-        video.addEventListener(
-            "playing",
-            () => {
-                playing = true;
-                checkReady();
-            },
-            true
-        );
-
-        video.addEventListener(
-            "timeupdate",
-            () => {
-                timeupdate = true;
-                checkReady();
-            },
-            true
-        );
-
-        video.src = url;
         video.play();
+
+        video.addEventListener("canplay", onPlaying, false);
+        video.addEventListener("durationchange", onTimeUpdate, false);
+
+        let playing = false;
+        let timeupdate = false;
+
+        function onPlaying() {
+            playing = true;
+            checkReady();
+        }
+
+        function onTimeUpdate() {
+            timeupdate = true;
+            checkReady();
+        }
+
 
         function checkReady() {
             if (playing && timeupdate) {
                 resolve(video);
             }
         }
-    })
+    });
 }
-
 
 let asciiDefaultColour = [211, 241, 0];
 
@@ -242,7 +235,7 @@ const init = () => {
         const positionsArray = Array(numberOfPositions).fill([0, 0]);
 
         const sprite = await loadTexture('./img/ascii-sprite.png');
-        const face = await loadVideo('./video/20S-loop-edited.webm');
+        const face = await loadVideo('./video/20S-loop-edited.mp4');
 
 
         const dpi = window.devicePixelRatio;
