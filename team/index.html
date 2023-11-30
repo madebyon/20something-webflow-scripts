@@ -335,6 +335,7 @@
           if (msgData[0].role !== undefined) {
             peopleData = msgData;
             init();
+            sendHeightToParent();
             setInterval(() => {
               sendHeightToParent();
             }, 1000);
