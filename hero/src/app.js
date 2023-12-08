@@ -58,7 +58,7 @@ const init = () => {
     let yOffset = 0;
 
     const controls = {
-        strokeWidth: 0.35,
+        strokeWidth: 0.32,
         strokeDecay: 0.1,
         asciiScale: 60,
         noiseScale: 2,
