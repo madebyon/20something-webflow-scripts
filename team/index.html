@@ -200,7 +200,7 @@
           models.push(gltf.scene);
 
           teamWrap.children[0].innerHTML += `
-            <div>
+            <div class="personSpacer">
               <div>
               <p>${person.name}</p>
               <p><span>${person.role}</span></p>
@@ -297,7 +297,7 @@
 
 
 
-      const discoButton = document.querySelector('#discoButton');
+      /*const discoButton = document.querySelector('#discoButton');
 
       discoButton.addEventListener('click', () => {
         isDisco = !isDisco;
@@ -314,6 +314,24 @@
           dLightRight.color = new THREE.Color('#ffffff');
           // light.color = new THREE.Color('#ffffff');
           discoButton.classList.remove('active');
+        }
+      })*/
+
+      const teamInner = document.querySelector('.team-inner');
+      const personSpacers = document.querySelectorAll('.personSpacers);
+
+      teamInner.addEventListener('click', (event) => {
+        if (personSpacers.indexOf(event.target) > -1) {
+          isDisco = !isDisco;
+
+          if (isDisco) {
+            dLightRight.intensity = 2;
+            discoButton.classList.add('active');
+          } else {
+            dLightRight.intensity = 0.1;
+            dLightRight.color = new THREE.Color('#ffffff');
+            discoButton.classList.remove('active');
+          }
         }
       })
 
@@ -370,6 +388,9 @@
       padding-top: 2px;
       cursor: pointer;
       transition: 400ms all;
+
+      display: none;
+      opacity: 0;
     }
 
     @keyframes discoBG {
