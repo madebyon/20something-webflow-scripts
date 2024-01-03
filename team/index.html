@@ -318,10 +318,9 @@
       })*/
 
       const teamInner = document.querySelector('.team-inner');
-      const personSpacers = document.querySelectorAll('.personSpacer');
 
       teamInner.addEventListener('click', (event) => {
-        if ([...personSpacers].indexOf(event.target) > -1) {
+        if (event.target.classList.contains('personSpacer')) {
           isDisco = !isDisco;
 
           if (isDisco) {
